@@ -107,14 +107,13 @@ fun MessageCard(message: Message) {
                     .animateContentSize()
                     .padding(1.dp)
             ) {
-
+                Text(
+                    text = message.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
-            Text(
-                text = message.body,
-                modifier = Modifier.padding(all = 4.dp),
-                maxLines = if (isExpanded) Int.MAX_VALUE else 1,
-                style = MaterialTheme.typography.bodyMedium
-            )
         }
     }
 }
