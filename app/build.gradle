@@ -37,6 +37,13 @@ android {
 
             resValue "string", "APP_NAME", "Compose Lesson 1"
         }
+        lesson2 {
+            dimension "version"
+            applicationIdSuffix ".lesson2"
+            versionNameSuffix "lesson2"
+
+            resValue "string", "APP_NAME", "Compose Lesson 2"
+        }
     }
 
     compileOptions {
@@ -77,4 +84,6 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    implementation "androidx.compose.material:material-icons-extended:1.4.3"
 }

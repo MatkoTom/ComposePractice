@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Compose Practice</string>
+    <string name="expand">Expand</string>
+    <string name="hello">"Hello, "</string>
+    <string name="continue_string">Continue</string>
+    <string name="welcome_to_the_basics_codelab">Welcome to the Basics Codelab!</string>
 </resources>
