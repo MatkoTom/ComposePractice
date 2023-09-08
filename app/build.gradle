@@ -58,6 +58,13 @@ android {
 
             resValue "string", "APP_NAME", "Compose Lesson 4"
         }
+        lesson5 {
+            dimension "version"
+            applicationIdSuffix ".lesson5"
+            versionNameSuffix "lesson5"
+
+            resValue "string", "APP_NAME", "Compose Lesson 5"
+        }
     }
 
     compileOptions {
