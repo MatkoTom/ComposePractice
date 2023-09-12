@@ -58,6 +58,13 @@ android {
 
             resValue "string", "APP_NAME", "Compose Lesson 4"
         }
+        rotamap {
+            dimension "version"
+            applicationIdSuffix ".rotamap"
+            versionNameSuffix "rotamap"
+
+            resValue "string", "APP_NAME", "Compose Rotamap"
+        }
     }
 
     compileOptions {
