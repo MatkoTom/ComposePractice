@@ -24,4 +24,8 @@
     <string name="bottom_navigation_home">HOME</string>
     <string name="bottom_navigation_profile">PROFILE</string>
     <string name="placeholder_search">Search</string>
+    <string name="call">Call</string>
+    <string name="send_in_app_message">Send in-app message</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="copy_number">Copy Number</string>
 </resources>
