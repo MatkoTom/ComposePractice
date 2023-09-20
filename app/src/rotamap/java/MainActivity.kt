@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.composepractice.theme.ComposePracticeTheme
 
@@ -24,6 +25,12 @@ class MainActivity : ComponentActivity() {
                     Column(Modifier.fillMaxSize()) {
                         RotamapTopBar(title = "my rota", null, null)
                         ContactButtonsList(buttonTexts)
+
+                        val selection by remember {
+                            selectedValue
+                        }
+
+                        PickerSelector(selected = selection)
                     }
                 }
             }

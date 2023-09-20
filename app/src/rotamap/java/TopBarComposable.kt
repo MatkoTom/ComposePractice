@@ -38,9 +38,9 @@ fun RotamapTopBar(
             Text(text = title, style = MaterialTheme.typography.titleLarge, color = Color.White)
             Spacer(modifier = Modifier.width(4.dp))
             Icon(
-                Icons.Filled.KeyboardArrowDown,
+                imageVector = Icons.Filled.KeyboardArrowDown,
                 contentDescription = null,
-                Modifier.padding(top = 4.dp),
+                modifier = Modifier.padding(top = 4.dp),
                 tint = Color.White
             )
 

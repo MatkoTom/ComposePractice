@@ -28,4 +28,10 @@
     <string name="send_in_app_message">Send in-app message</string>
     <string name="send_sms">Send SMS</string>
     <string name="copy_number">Copy Number</string>
+    <string name="persons_name">Persons name</string>
+    <string name="label">Label</string>
+    <string name="sms">SMS</string>
+    <string name="push">Push</string>
+    <string name="email">Email</string>
+    <string name="none">None</string>
 </resources>

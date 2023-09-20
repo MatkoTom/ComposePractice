@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-val buttonTexts = listOf(
+val buttonTexts: List<Int> = listOf(
     R.string.call, R.string.send_in_app_message, R.string.send_sms, R.string.copy_number
 )
 
@@ -30,7 +30,7 @@ val buttonTexts = listOf(
 fun ContactButtonsList(textItems: List<Int>) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = "Persons name",
+            text = stringResource(R.string.persons_name),
             color = Color.Black,
             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
         )
