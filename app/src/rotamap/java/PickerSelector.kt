@@ -109,6 +109,7 @@ fun PickerContent(topLabel: Int, onChanged: (Int) -> Unit) {
         modifier = Modifier.padding(top = 32.dp, bottom = 32.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // TODO Hoist selected state here, and modify it in Item when something is selected
         items(pickerItems) { item ->
             PickerContentItem(text = item, selected = item == topLabel, onChanged = {
                 onChanged(it)
