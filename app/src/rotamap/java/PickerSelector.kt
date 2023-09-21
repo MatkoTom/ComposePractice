@@ -20,7 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,8 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
-var selectedValue:MutableState<Int> = mutableStateOf(R.string.sms)
 
 @Composable
 fun PickerSelector(selected: Int) {
@@ -52,9 +49,14 @@ fun PickerSelector(selected: Int) {
                 )
                 .clickable { expanded = !expanded }
         ) {
-            PickerTitleBar(text = R.string.label, selectedItem = selectedItem)
+            PickerTitleBar(
+                text = R.string.label,
+                selectedItem = selectedItem,
+            )
             if (expanded) {
-                PickerContent(selectedItem)
+                PickerContent(topLabel = selectedItem,
+                    onChanged = { selectedItem = it }
+                )
             }
         }
     }
@@ -102,13 +104,15 @@ val pickerItems: List<Int> = listOf(
 )
 
 @Composable
-fun PickerContent(topLabel: Int) {
+fun PickerContent(topLabel: Int, onChanged: (Int) -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(top = 32.dp, bottom = 32.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(pickerItems) { item ->
-            PickerContentItem(text = item, item == topLabel)
+            PickerContentItem(text = item, selected = item == topLabel, onChanged = {
+                onChanged(it)
+            })
         }
     }
 }
@@ -116,11 +120,11 @@ fun PickerContent(topLabel: Int) {
 @Composable
 @Preview(showBackground = true)
 fun PickerContentPreview() {
-    PickerContent(R.string.label)
+    PickerContent(topLabel = R.string.label, onChanged = {})
 }
 
 @Composable
-fun PickerContentItem(text: Int, selected: Boolean) {
+fun PickerContentItem(text: Int, selected: Boolean, onChanged: (Int) -> Unit) {
     var itemSelected by remember { mutableStateOf(selected) }
     val backgroundValue =
         if (itemSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
@@ -133,12 +137,15 @@ fun PickerContentItem(text: Int, selected: Boolean) {
             .background(backgroundValue)
             .padding(12.dp)
             .fillMaxWidth()
-            .clickable { selectedValue.value = text}
+            .clickable {
+                onChanged(text)
+                itemSelected = !itemSelected
+            }
     )
 }
 
 @Composable
 @Preview(showBackground = true)
 fun PickerContentItemPreview() {
-    PickerContentItem(text = R.string.push, true)
+    PickerContentItem(text = R.string.push, selected = true, onChanged = {})
 }
