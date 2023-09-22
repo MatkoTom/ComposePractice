@@ -117,8 +117,8 @@ fun PickerContent(topLabel: Int, onChanged: (Int) -> Unit) {
                 selected = item == itemSelected,
                 onChanged = {
                     onChanged(it)
-                },
-                onItemSelected = { itemSelected = it }
+                    itemSelected = it
+                }
             )
         }
     }
@@ -134,8 +134,7 @@ fun PickerContentPreview() {
 fun PickerContentItem(
     text: Int,
     selected: Boolean,
-    onChanged: (Int) -> Unit,
-    onItemSelected: (Int) -> Unit
+    onChanged: (Int) -> Unit
 ) {
     val backgroundValue =
         if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
@@ -150,7 +149,6 @@ fun PickerContentItem(
             .fillMaxWidth()
             .clickable {
                 onChanged(text)
-                onItemSelected(text)
             }
     )
 }
@@ -158,5 +156,5 @@ fun PickerContentItem(
 @Composable
 @Preview(showBackground = true)
 fun PickerContentItemPreview() {
-    PickerContentItem(text = R.string.push, selected = true, onChanged = {}, onItemSelected = {})
+    PickerContentItem(text = R.string.push, selected = true, onChanged = {})
 }
