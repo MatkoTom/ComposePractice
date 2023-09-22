@@ -105,15 +105,21 @@ val pickerItems: List<Int> = listOf(
 
 @Composable
 fun PickerContent(topLabel: Int, onChanged: (Int) -> Unit) {
+    var itemSelected by remember { mutableStateOf(topLabel) }
+
     LazyColumn(
         modifier = Modifier.padding(top = 32.dp, bottom = 32.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // TODO Hoist selected state here, and modify it in Item when something is selected
         items(pickerItems) { item ->
-            PickerContentItem(text = item, selected = item == topLabel, onChanged = {
-                onChanged(it)
-            })
+            PickerContentItem(
+                text = item,
+                selected = item == itemSelected,
+                onChanged = {
+                    onChanged(it)
+                },
+                onItemSelected = { itemSelected = it }
+            )
         }
     }
 }
@@ -125,10 +131,14 @@ fun PickerContentPreview() {
 }
 
 @Composable
-fun PickerContentItem(text: Int, selected: Boolean, onChanged: (Int) -> Unit) {
-    var itemSelected by remember { mutableStateOf(selected) }
+fun PickerContentItem(
+    text: Int,
+    selected: Boolean,
+    onChanged: (Int) -> Unit,
+    onItemSelected: (Int) -> Unit
+) {
     val backgroundValue =
-        if (itemSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
+        if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
 
     Text(
         text = stringResource(id = text),
@@ -140,7 +150,7 @@ fun PickerContentItem(text: Int, selected: Boolean, onChanged: (Int) -> Unit) {
             .fillMaxWidth()
             .clickable {
                 onChanged(text)
-                itemSelected = !itemSelected
+                onItemSelected(text)
             }
     )
 }
@@ -148,5 +158,5 @@ fun PickerContentItem(text: Int, selected: Boolean, onChanged: (Int) -> Unit) {
 @Composable
 @Preview(showBackground = true)
 fun PickerContentItemPreview() {
-    PickerContentItem(text = R.string.push, selected = true, onChanged = {})
+    PickerContentItem(text = R.string.push, selected = true, onChanged = {}, onItemSelected = {})
 }
