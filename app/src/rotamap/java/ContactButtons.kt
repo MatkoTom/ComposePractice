@@ -31,7 +31,6 @@ fun ContactButtonsList(textItems: List<Int>) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = stringResource(R.string.persons_name),
-            color = Color.Black,
             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
         )
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
