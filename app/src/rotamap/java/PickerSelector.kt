@@ -142,6 +142,8 @@ fun PickerContentItem(
     val backgroundValue =
         if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
 
+    val textColor = if (selected) MaterialTheme.colorScheme.background else Color.Unspecified
+
     Text(
         text = stringResource(id = text),
         style = MaterialTheme.typography.bodyMedium,
@@ -153,7 +155,8 @@ fun PickerContentItem(
             .clickable {
                 onChanged(text)
             }
-            .wrapContentSize()
+            .wrapContentSize(),
+        color = textColor
     )
 }
 
