@@ -24,4 +24,11 @@
     <string name="bottom_navigation_home">HOME</string>
     <string name="bottom_navigation_profile">PROFILE</string>
     <string name="placeholder_search">Search</string>
+    <string name="location_permission_description">"Always keep your location On and set KATANA Safety location permission to \"Always\". "</string>
+    <string name="why">Why?</string>
+    <string name="notification_permission_description">"Always keep your Notifications enabled. To get full use of KATANA Safety always have notifications turned on. "</string>
+    <string name="permissions">Permissions</string>
+    <string name="give_permission">Give permission</string>
+    <string name="subscribe_247">Subscribe to 24/7 Response Center for added layer of defense.</string>
+    <string name="next">Next</string>
 </resources>
