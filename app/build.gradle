@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.composepractice'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.composepractice"
         minSdk 28
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -65,6 +65,13 @@ android {
 
             resValue "string", "APP_NAME", "Compose Lesson 5"
         }
+        mvvmRetrofit {
+            dimension "version"
+            applicationIdSuffix ".mvvmRetrofit"
+            versionNameSuffix "mvvmRetrofit"
+
+            resValue "string", "APP_NAME", "Mvvm Retrofit"
+        }
     }
 
     compileOptions {
@@ -108,5 +115,12 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
     implementation "androidx.compose.material:material-icons-extended:1.4.3"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.7.0"
 }

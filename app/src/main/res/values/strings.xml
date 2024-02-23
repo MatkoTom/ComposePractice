@@ -31,4 +31,14 @@
     <string name="give_permission">Give permission</string>
     <string name="subscribe_247">Subscribe to 24/7 Response Center for added layer of defense.</string>
     <string name="next">Next</string>
+    <string name="guess_the_flag">Guess the Flag!</string>
+    <string name="submit">Submit</string>
+    <string name="skip">Skip</string>
+    <string name="country_name_question">What is the name of this country?</string>
+    <string name="enter_your_guess">Enter your guess</string>
+    <string name="you_guessed_wrong">You guessed wrong</string>
+    <string name="game_over">Game over</string>
+    <string name="the_game_is_now_finished">The game is now finished</string>
+    <string name="exit">Exit</string>
+    <string name="play_again">Play again</string>
 </resources>
