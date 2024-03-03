@@ -1,21 +1,24 @@
-package com.example.composepractice
+package com.example.composepractice.ui
 
-import android.graphics.BitmapFactory
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composepractice.model.Flag
-import com.example.composepractice.networking.RetrofitInstance
 import com.example.composepractice.repository.MAX_COUNTRY_NUMBER
+import com.example.composepractice.repository.MainRepository
 import com.example.composepractice.repository.getRandomCountry
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-    private val service = RetrofitInstance.service
-    private lateinit var currentFlag: Pair<String, String>
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: MainRepository
+) : ViewModel() {
+    lateinit var currentFlag: Pair<String, String>
     val flag: MutableStateFlow<Flag?> = MutableStateFlow(null)
     var guess by mutableStateOf("")
     var isGuessWrong by mutableStateOf(false)
@@ -32,14 +35,7 @@ class MainViewModel : ViewModel() {
         currentFlag = randomFlag
         usedCountriesList.add(randomFlag)
 
-        val response = service.getFlagByCountryCode(randomFlag.first)
-        if (response.body() != null) {
-            val imageData = response.body()?.bytes()
-            val bitmap = imageData?.size?.let { BitmapFactory.decodeByteArray(imageData, 0, it) }
-
-            flag.value = bitmap?.let { Flag(it) }
-        } else
-            flag.value = null
+        flag.value = repository.callFlagsApi(randomFlag)?.let { Flag(it) }
     }
 
     private fun getRandomFlag(): Pair<String, String> {

@@ -41,4 +41,5 @@
     <string name="the_game_is_now_finished">The game is now finished</string>
     <string name="exit">Exit</string>
     <string name="play_again">Play again</string>
+    <string name="flag_name_was">Flag name was: %1$s</string>
 </resources>

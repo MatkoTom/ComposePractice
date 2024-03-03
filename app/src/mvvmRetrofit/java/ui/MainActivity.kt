@@ -1,11 +1,11 @@
-package com.example.composepractice
+package com.example.composepractice.ui
 
 import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,16 +34,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.composepractice.R
 import com.example.composepractice.ui.theme.ComposePracticeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ComposePracticeTheme {
+                val viewModel = hiltViewModel<MainViewModel>()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
@@ -60,6 +62,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GuessTheFlagName(viewModel: MainViewModel) {
     val flag by viewModel.flag.collectAsState()
+    val activity = (LocalContext.current as Activity)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -85,7 +88,14 @@ fun GuessTheFlagName(viewModel: MainViewModel) {
             Text(text = stringResource(R.string.submit))
         }
 
-        Button(onClick = { viewModel.skipFlagGuess() }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = {
+            Toast.makeText(
+                activity,
+                activity.getString(R.string.flag_name_was, viewModel.currentFlag.second),
+                Toast.LENGTH_SHORT
+            ).show()
+            viewModel.skipFlagGuess()
+        }, modifier = Modifier.fillMaxWidth()) {
             Text(text = stringResource(R.string.skip))
         }
     }
