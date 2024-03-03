@@ -11,6 +11,8 @@ import com.example.composepractice.repository.MainRepository
 import com.example.composepractice.repository.getRandomCountry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +21,10 @@ class MainViewModel @Inject constructor(
     private val repository: MainRepository
 ) : ViewModel() {
     lateinit var currentFlag: Pair<String, String>
-    val flag: MutableStateFlow<Flag?> = MutableStateFlow(null)
+
+    private val _flag: MutableStateFlow<Flag?> = MutableStateFlow(null)
+    val flag = _flag.asStateFlow()
+
     var guess by mutableStateOf("")
     var isGuessWrong by mutableStateOf(false)
     var isGameOver by mutableStateOf(false)
@@ -35,7 +40,7 @@ class MainViewModel @Inject constructor(
         currentFlag = randomFlag
         usedCountriesList.add(randomFlag)
 
-        flag.value = repository.callFlagsApi(randomFlag)?.let { Flag(it) }
+        _flag.value = repository.callFlagsApi(randomFlag)?.let { Flag(it) }
     }
 
     private fun getRandomFlag(): Pair<String, String> {
