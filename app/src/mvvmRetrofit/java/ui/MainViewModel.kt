@@ -11,7 +11,6 @@ import com.example.composepractice.repository.MainRepository
 import com.example.composepractice.repository.getRandomCountry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +23,9 @@ class MainViewModel @Inject constructor(
 
     private val _flag: MutableStateFlow<Flag?> = MutableStateFlow(null)
     val flag = _flag.asStateFlow()
+
+    private val _score: MutableStateFlow<Int> = MutableStateFlow(0)
+    val score = _score.asStateFlow()
 
     var guess by mutableStateOf("")
     var isGuessWrong by mutableStateOf(false)
@@ -65,6 +67,7 @@ class MainViewModel @Inject constructor(
     fun checkFlagGuess() {
         if (guess.equals(currentFlag.second, ignoreCase = true)) {
             updateGameState()
+            _score.value++
         } else {
             updateGuess("")
             isGuessWrong = true
@@ -82,6 +85,7 @@ class MainViewModel @Inject constructor(
     fun resetGame() {
         usedCountriesList.clear()
         isGameOver = false
+        _score.value = 0
         getFlagRetrofit()
     }
 }

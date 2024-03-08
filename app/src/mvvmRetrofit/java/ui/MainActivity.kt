@@ -9,10 +9,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -63,6 +66,7 @@ class MainActivity : ComponentActivity() {
 fun GuessTheFlagName(viewModel: MainViewModel) {
     val flag by viewModel.flag.collectAsState()
     val activity = (LocalContext.current as Activity)
+    val score by viewModel.score.collectAsState()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,29 +88,52 @@ fun GuessTheFlagName(viewModel: MainViewModel) {
                 onKeyboardDone = { viewModel.checkFlagGuess() })
         }
 
-        Button(onClick = { viewModel.checkFlagGuess() }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = { viewModel.checkFlagGuess() },
+            shape = RoundedCornerShape(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text(text = stringResource(R.string.submit))
         }
 
-        Button(onClick = {
-            Toast.makeText(
-                activity,
-                activity.getString(R.string.flag_name_was, viewModel.currentFlag.second),
-                Toast.LENGTH_SHORT
-            ).show()
-            viewModel.skipFlagGuess()
-        }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                Toast.makeText(
+                    activity,
+                    activity.getString(R.string.flag_name_was, viewModel.currentFlag.second),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.skipFlagGuess()
+            }, shape = RoundedCornerShape(8.dp), modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Text(text = stringResource(R.string.skip))
         }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ScoreCard(score)
     }
 
     if (viewModel.isGameOver) {
-        GameOverDialog(modifier = Modifier, onPlayAgain = { viewModel.resetGame() })
+        GameOverDialog(modifier = Modifier, onPlayAgain = { viewModel.resetGame() }, score = score)
     }
 }
 
 @Composable
-fun GameOverDialog(modifier: Modifier, onPlayAgain: () -> Unit) {
+fun ScoreCard(score: Int) {
+    Card {
+        Column(
+            modifier = Modifier.padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = score.toString())
+            Text(text = stringResource(R.string.points))
+        }
+    }
+}
+
+@Composable
+fun GameOverDialog(modifier: Modifier, onPlayAgain: () -> Unit, score: Int) {
     val activity = (LocalContext.current as Activity)
 
     AlertDialog(
@@ -116,7 +143,7 @@ fun GameOverDialog(modifier: Modifier, onPlayAgain: () -> Unit) {
             // onDismissRequest.
         },
         title = { Text(stringResource(R.string.game_over)) },
-        text = { Text(stringResource(R.string.the_game_is_now_finished)) },
+        text = { Text(stringResource(R.string.the_game_is_now_finished, score.toString())) },
         modifier = modifier,
         dismissButton = {
             TextButton(
